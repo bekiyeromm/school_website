@@ -1,0 +1,33 @@
+<!-- update_admission.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Admission Process</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: auto; padding: 20px; background: white; border-radius: 5px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 15px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Admission Process</h1>
+        <form action="{{ url_for('update_admission_route', id=admission.id) }}" method="POST">
+            <label for="process">Admission Process</label>
+            <textarea name="process" id="process" rows="5" required>{{ admission.process }}</textarea>
+
+            <label for="requirements">Requirements</label>
+            <textarea name="requirements" id="requirements" rows="5" required>{{ admission.requirements }}</textarea>
+
+            <label for="application_form_link">Application Form Link</label>
+            <input type="url" name="application_form_link" id="application_form_link" value="{{ admission.application_form_link }}" required>
+
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</body>
+</html>

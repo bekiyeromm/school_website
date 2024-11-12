@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Announcement</title>
+    <style>
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f06, #ff9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #4A4A4A;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+            color: #4A4A4A;
+        }
+
+        input[type="text"],
+        textarea,
+        select,
+        input[type="datetime-local"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus,
+        input[type="datetime-local"]:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #6B73FF, #000DFF);
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #4A57FF, #0009FF);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .form-group-category {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .form-group-category {
+                flex-direction: column;
+            }
+
+            .form-group-category label {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+    <script src="static/tinymce_7.3.0/tinymce/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#content',
+            menubar: false,
+            plugins: 'lists link image code',
+            toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
+            height: 300,
+            setup: function (editor) {
+                editor.on('init', function (e) {
+                    // Ensure the content is properly loaded into TinyMCE editor on initialization
+                    editor.setContent('{{ announcement.content | safe }}');
+                });
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Update Announcement</h1>
+        <form method="POST" action="{{ url_for('update_announcement_route', id=announcement.id) }}">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" value="{{ announcement.title }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="content">Content:</label>
+                <textarea id="content" name="content" required>{{ announcement.content }}</textarea>
+            </div>
+
+            <div class="form-group form-group-category">
+                <label for="category">Category:</label>
+                <select id="category" name="category" required>
+                    <option value="KG" {% if announcement.category == 'KG' %}selected{% endif %}>KG</option>
+                    <option value="Primary" {% if announcement.category == 'Primary' %}selected{% endif %}>Primary</option>
+                    <option value="Secondary" {% if announcement.category == 'Secondary' %}selected{% endif %}>Secondary</option>
+                    <option value="A-Level" {% if announcement.category == 'A-Level' %}selected{% endif %}>A-Level</option>
+                    <option value="AS-Level" {% if announcement.category == 'AS-Level' %}selected{% endif %}>AS-Level</option>
+                    <option value="All" {% if announcement.category == 'All' %}selected{% endif %}>All</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="expiry_date">Expiry Date:</label>
+                <input type="datetime-local" id="expiry_date" name="expiry_date" value="{{ announcement.expiry_date | replace(' ', 'T') }}">
+            </div>
+
+            <button type="submit">Update Announcement</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
