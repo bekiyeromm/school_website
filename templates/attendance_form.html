@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Registration</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #d1e7f0; /* Page background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .attendance-form {
+            background-color: #f7f9fc; /* Form background color */
+            padding: 20px 30px; /* Adjusted padding */
+            border-radius: 15px;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
+            width: 90%; /* Reduced width */
+            max-width: 400px; /* Adjusted maximum width */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .attendance-form:hover {
+            transform: scale(1.02);
+        }
+
+        .attendance-form h2 {
+            text-align: center;
+            margin-bottom: 15px; /* Adjusted margin */
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #666;
+            display: block;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #2193b0;
+            box-shadow: 0px 0px 8px rgba(33, 147, 176, 0.3);
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2193b0;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #176f8b;
+        }
+
+        @media (max-width: 600px) {
+            .attendance-form {
+                padding: 25px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <form class="attendance-form" action="/submit_attendance" method="POST">
+        <h2>Student Attendance Registration</h2>
+        
+        <div class="form-group">
+            <label for="student_name">Student Full Name</label>
+            <input type="text" id="full_name" name="full_name" placeholder="Enter student's full name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="grade">Select Grade</label>
+            <select id="grade" name="grade" required onchange="updateSections()">
+                <option value="">Select Grade</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="A">A-Level</option>
+                <option value="AS">AS-Level</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="section">Select Section</label>
+            <select id="section" name="section" required disabled>
+                <option value="">Select Section</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="absence_date">Date of Absence</label>
+            <input type="date" id="absence_date" name="absence_date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="homeroom_teacher">Homeroom Teacher</label>
+            <input type="text" id="homeroom_teacher" name="homeroom_teacher" placeholder="Enter homeroom teacher's name" required>
+        </div>
+
+        <div class="form-group">
+            <button type="submit">Submit Attendance</button>
+        </div>
+    </form>
+
+    <script>
+        function updateSections() {
+            const grade = document.getElementById("grade").value;
+            const sectionSelect = document.getElementById("section");
+
+            sectionSelect.innerHTML = '<option value="">Select Section</option>';
+
+            if (grade === "7") {
+                sectionSelect.innerHTML += '<option value="7C1">7C1</option>';
+                sectionSelect.innerHTML += '<option value="7C2">7C2</option>';
+                sectionSelect.innerHTML += '<option value="7C3">7C3</option>';
+                sectionSelect.innerHTML += '<option value="7C4">7C4</option>';
+            } else if (grade === "8") {
+                sectionSelect.innerHTML += '<option value="8C1">8C1</option>';
+                sectionSelect.innerHTML += '<option value="8C2">8C2</option>';
+                sectionSelect.innerHTML += '<option value="8C3">8C3</option>';
+            } else if (grade === "9") {
+                sectionSelect.innerHTML += '<option value="9C1">9C1</option>';
+                sectionSelect.innerHTML += '<option value="9C2">9C2</option>';
+                sectionSelect.innerHTML += '<option value="9C3">9C3</option>';
+            } else if (grade === "10") {
+                sectionSelect.innerHTML += '<option value="10C1">10C1</option>';
+                sectionSelect.innerHTML += '<option value="10C2">10C2</option>';
+                sectionSelect.innerHTML += '<option value="10C3">10C3</option>';
+            } else if (grade === "A") {
+                sectionSelect.innerHTML += '<option value="A1">A1</option>';
+                sectionSelect.innerHTML += '<option value="A2">A2</option>';
+                sectionSelect.innerHTML += '<option value="A3">A3</option>';
+            } else if (grade === "AS") {
+                sectionSelect.innerHTML += '<option value="AS1">AS1</option>';
+                sectionSelect.innerHTML += '<option value="AS2">AS2</option>';
+                sectionSelect.innerHTML += '<option value="AS3">AS3</option>';
+            }
+
+            sectionSelect.disabled = false;
+        }
+    </script>
+
+</body>
+
+</html>
