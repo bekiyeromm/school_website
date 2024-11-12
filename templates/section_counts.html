@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section Attendance Counts</title>
+</head>
+<body>
+    <h1>Count Students Per Section</h1>
+    <form action="{{ url_for('count_per_section') }}" method="POST">
+        <label for="period">Count For:</label>
+        <select id="period" name="period" required>
+            <option value="day">Today</option>
+            <option value="month">This Month</option>
+            <option value="year">This Year</option>
+        </select><br>
+        
+        <button type="submit">Get Counts</button>
+    </form>
+    
+    <h2>Counts</h2>
+    <ul>
+        {% for count in counts %}
+            <li>{{ count['section'] }}: {{ count['count'] }} students absent</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

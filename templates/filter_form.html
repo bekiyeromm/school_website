@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Attendance</title>
+</head>
+<body>
+    <h1>Filter Absent Students</h1>
+    <form action="{{ url_for('filter_attendance') }}" method="POST">
+        <label for="filter_by">Filter By:</label>
+        <select id="filter_by" name="filter_by" required>
+            <option value="date">Date</option>
+            <option value="month">Month</option>
+            <option value="year">Year</option>
+        </select><br>
+        
+        <label for="filter_value">Enter Value:</label>
+        <input type="text" id="filter_value" name="filter_value" required><br>
+        
+        <button type="submit">Filter</button>
+    </form>
+</body>
+</html>

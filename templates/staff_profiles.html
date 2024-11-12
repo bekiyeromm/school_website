@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Profiles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 40px;
+        }
+
+        .staff-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .staff-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 220px;
+            transition: transform 0.3s ease;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .staff-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .staff-photo:hover {
+            transform: scale(1.1); /* Slight zoom on hover */
+        }
+
+        .staff-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+
+        .staff-position,
+        .staff-qualification,
+        .staff-experience,
+        .staff-expert-areas {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .actions {
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn.delete {
+            background-color: #dc3545;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Animation for modal */
+        .modal-content,
+        .close {
+            animation: zoom 0.6s;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive for smaller devices */
+        @media only screen and (max-width: 700px) {
+            .modal-content {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Staff Profiles</h1>
+    <div class="staff-container">
+        {% for staff in staff_profiles %}
+        <div class="staff-card">
+            <img src="{{ url_for('static', filename='uploads/' + staff.profile_photo.split('/')[-1]) }}" alt="Profile Photo"
+                class="staff-photo" onclick="openModal('{{ url_for('static', filename='uploads/' + staff.profile_photo.split('/')[-1]) }}')">
+            <div class="staff-name">{{ staff.name }}</div>
+            <div class="staff-position">Position: {{ staff.position }}</div>
+            <div class="staff-qualification">Qualification: {{ staff.qualification }}</div>
+            <div class="staff-experience">Experience: {{ staff.experience }}</div>
+            <div class="staff-expert-areas">Expert Areas: {{ staff.expert_areas }}</div>
+            <div class="actions">
+                <a href="{{ url_for('update_staff', id=staff.id) }}" class="btn">Update</a>
+                <form action="{{ url_for('delete_staff', id=staff.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn delete" onclick="return confirm('Are you sure you want to delete this staff profile?');">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <div>No staff profiles found.</div>
+        {% endfor %}
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // Function to open the modal with the full-size image
+        function openModal(src) {
+            var modal = document.getElementById("myModal");
+            var modalImg = document.getElementById("modalImage");
+            modal.style.display = "block";
+            modalImg.src = src;
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

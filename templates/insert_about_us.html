@@ -1,0 +1,113 @@
+<!-- templates/insert_about_us.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert About Us</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif; /* Font style */
+            background-color: #f4f4f4; /* Light background */
+            color: #333; /* Text color */
+            line-height: 1.6; /* Line height for readability */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+
+        .container {
+            max-width: 800px; /* Max width for the container */
+            margin: 30px auto; /* Centering the container */
+            padding: 20px; /* Padding for inner spacing */
+            background-color: #fff; /* White background for the form */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+        }
+
+        h1 {
+            text-align: center; /* Center align the heading */
+            color: #007BFF; /* Heading color */
+            margin-bottom: 20px; /* Space below the heading */
+            font-size: 28px; /* Heading font size */
+        }
+
+        label {
+            display: block; /* Each label on its own line */
+            margin-bottom: 5px; /* Space below the label */
+            font-weight: bold; /* Bold labels */
+        }
+
+        textarea {
+            width: 100%; /* Full width for the text area */
+            height: 100px; /* Height for text area */
+            padding: 10px; /* Padding inside the text area */
+            border: 1px solid #ccc; /* Border style */
+            border-radius: 5px; /* Rounded corners for text area */
+            box-sizing: border-box; /* Include padding in width calculation */
+            margin-bottom: 20px; /* Space below text area */
+            resize: none; /* Disable resizing */
+            font-size: 14px; /* Font size for text area */
+        }
+
+        input[type="submit"] {
+            width: 100%; /* Full width for button */
+            padding: 10px; /* Padding for button */
+            background-color: #007BFF; /* Button color */
+            color: #fff; /* Text color for button */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners for button */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 16px; /* Font size for button */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Insert About Us Information</h1>
+    <form action="{{ url_for('insert') }}" method="POST">
+        <div>
+            <label for="school_history">School History:</label>
+            <textarea name="school_history" id="school_history" rows="4"></textarea>
+        </div>
+
+        <div>
+            <label for="mission">Mission:</label>
+            <textarea name="mission" id="mission" rows="4"></textarea>
+        </div>
+
+        <div>
+            <label for="vision">Vision:</label>
+            <textarea name="vision" id="vision" rows="4"></textarea>
+        </div>
+
+        <div>
+            <label for="administration_staff_profiles">Administration & Staff Profiles:</label>
+            <textarea name="administration" id="administration_staff_profiles" rows="4"></textarea>
+        </div>
+
+        <div>
+            <label for="contact_info">Contact Info:</label>
+            <textarea name="contact_info" id="contact_info" rows="4"></textarea>
+        </div>
+
+        <div>
+            <label for="social_media_links">Social Media Links:</label>
+            <textarea name="social_media" id="social_media_links" rows="4"></textarea>
+        </div>
+
+        <div>
+            <label for="privacy">Privacy Policy:</label>
+            <textarea name="privacy" id="privacy" rows="4"></textarea>
+        </div>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>

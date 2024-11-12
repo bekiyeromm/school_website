@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            /* Increased max-width for better layout */
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            /* Flexbox for side by side layout */
+            justify-content: space-between;
+            /* Space out the children */
+        }
+
+        .contact-info {
+            width: 45%;
+            /* Set width for contact info */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .aa {
+            margin: 20px 0;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .aa div {
+            margin-bottom: 15px;
+        }
+
+        .aa div i {
+            color: #007bff;
+            margin-right: 10px;
+        }
+
+        .social-media {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .social-media a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #007bff;
+            font-size: 24px;
+        }
+
+        .map {
+            width: 50%;
+            /* Set width for Google map */
+            padding-left: 20px;
+            /* Space between contact info and map */
+        }
+
+        .map iframe {
+            width: 100%;
+            /* Make the map responsive */
+            height: 400px;
+            /* Set height for the map */
+            border: 0;
+            /* Remove border */
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+   
+    <div class="container">
+        <div class="contact-info">
+            <h1>Contact Us</h1>
+            {% for contact in contacts %}
+            <div class="aa">
+                <div><i class="fas fa-map-marker-alt"></i> <b>Address:</b> {{ contact.address }}</div>
+                <div><i class="fas fa-phone-alt"></i> <b>Phone:</b> {{ contact.phone }}</div>
+                <div><i class="fas fa-envelope"></i> <b>Email:</b> <a href="mailto:{{ contact.email }}">{{ contact.email
+                        }}</a></div>
+            </div>
+            <hr>
+            {% endfor %}
+            <div class="social-media">
+                <a href="https://www.facebook.com/bk.tena/">Facebook<i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com/BereketTena1">Twitter<i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/bereket-tena-43a171125/">LinkedIn<i
+                        class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+
+        <div class="map">
+            <!-- Google Map Embed -->
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2544.9816924911747!2d38.766299936899074!3d9.00736129109034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b857d55ac9d6d%3A0xf6cf1520703b15bf!2sGreek%20Community%20School!5e1!3m2!1sen!2set!4v1727714798201!5m2!1sen!2set"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

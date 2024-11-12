@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #007BFF;
+        }
+        label {
+            font-size: 16px;
+            margin-top: 10px;
+            display: block;
+        }
+        input[type="text"], textarea, input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add a New Event</h2>
+        <form action="{{ url_for('insert_event') }}" method="POST">
+            <label for="title">Event Title</label>
+            <input type="text" id="title" name="title" required>
+            
+            <label for="description">Event Description</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+            
+            <label for="date">Event Date</label>
+            <input type="date" id="date" name="date" required>
+            
+            <label for="location">Event Location</label>
+            <input type="text" id="location" name="location" required>
+            
+            <button type="submit">Add Event</button>
+        </form>
+    </div>
+</body>
+</html>
