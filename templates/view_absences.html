@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Absent Students</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f2f5;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+        .view-absences-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="number"],
+        input[type="text"] {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 180px;
+        }
+        button[type="submit"] {
+            padding: 0.8rem 1.5rem;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"]:hover {
+            background: #0056b3;
+        }
+        .attendance-results {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #007bff;
+            color: #fff;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .attendance-results td:last-child {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .attendance-results button {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+        }
+        .edit-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .edit-btn:hover {
+            background-color: #218838;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+        @media (max-width: 600px) {
+            .form-group {
+                flex-direction: column;
+            }
+            input[type="number"],
+            input[type="text"] {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form class="view-absences-form" action="/view_absences" method="POST">
+            <h2>View Absent Students by Month Range and Grade</h2>
+            <div class="form-group">
+                <label for="start_year">Start Year</label>
+                <input type="number" id="start_year" name="start_year" required>
+                <label for="end_year">End Year</label>
+                <input type="number" id="end_year" name="end_year" required>
+            </div>
+            <div class="form-group">
+                <label for="start_month">Start Month</label>
+                <input type="number" id="start_month" name="start_month" required min="1" max="12">
+                <label for="end_month">End Month</label>
+                <input type="number" id="end_month" name="end_month" required min="1" max="12">
+            </div>
+            <div class="form-group">
+                <label for="grade">Grade (Optional)</label>
+                <input type="text" id="grade" name="grade">
+            </div>
+            <div class="form-group">
+                <label for="section">Section (Optional)</label>
+                <input type="text" id="section" name="section">
+            </div>
+            <div class="form-group">
+                <button type="submit">View Absences</button>
+            </div>
+        </form>
+
+        <div>
+            {% if count > 0 %}
+            <h3 style="text-align: center;">Total Absences: {{ count }}</h3>
+            <table class="attendance-results">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Grade</th>
+                        <th>Section</th>
+                        <th>Homeroom Teacher</th>
+                        <th>Absence Count</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student[0] }}</td>
+                        <td>{{ student[1] }}</td>
+                        <td>{{ student[2] }}</td>
+                        <td>{{ student[3] }}</td>
+                        <td>{{ student[4] }}</td>
+                        <td>
+                            <form action="{{ url_for('edit_attendance', id=student[5]) }}" method="GET">
+                                <button type="submit" class="edit-btn" title="Edit">&#9998;</button>
+                            </form>
+                            <form action="{{ url_for('delete_attendance', id=student[5]) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="delete-btn" title="Delete" onclick="return confirm('Are you sure you want to delete this record?');">&#128465;</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p style="text-align: center; font-size: 1.1rem; color: #777;">No absences found for the selected filters.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Automatically set the current month and year as default values for start and end date fields
+        const today = new Date();
+        document.getElementById('start_year').value = today.getFullYear();
+        document.getElementById('end_year').value = today.getFullYear();
+        document.getElementById('start_month').value = today.getMonth() + 1;
+        document.getElementById('end_month').value = today.getMonth() + 1;
+    </script>
+</body>
+</html>
