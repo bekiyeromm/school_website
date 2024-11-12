@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Website</title>
+    <link rel="stylesheet" href="../static/styles/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li class="dropdown">
+                <a href="#">Manage Staff</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('staff_profiles') }}">View Staff</a>
+                    <a href="{{ url_for('add_staff_profile') }}">Create Staff</a>
+                    <a href="#">Update Staff</a>
+                    <a href="#">Delete Staff</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Manage Home Room</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('view_users') }}">View Home Room</a>
+                    <a href="{{ url_for('add_user_view') }}">Create Home Room</a>
+                    <a href="#view_homeroom">Update Home Room</a>
+                    <a href="#">Delete Home Room</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Manage Events</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('manage_events') }}">View Events</a>
+                    <a href="{{ url_for('add_event_route') }}">Create Event</a>
+                    <a href="{{ url_for('add_event_route') }}">Update Event</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Manage Contact Us</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('contact_us') }}">View Contacts</a>
+                    <a href="#">Create Contact</a>
+                    <a href="#">Update Contact</a>
+                    <a href="#">Delete Contact</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Manage Info</a>
+                <div class="dropdown-content">
+                    <a href="#">View Info</a>
+                    <a href="#">Create Info</a>
+                    <a href="#">Update Info</a>
+                    <a href="#">Delete Info</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Manage Attendance</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('view_absences') }}">View Attendance</a>
+                    <a href="{{ url_for('attendance_form') }}">Create Attendance</a>
+                    <a href="#">Update Attendance</a>
+                    <a href="#">Delete Attendance</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Manage Announcements</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('view_announcements') }}">View Announcements</a>
+                    <a href="{{ url_for('add_announcement') }}">Create Announcement</a>
+                    <a href="#">Update Announcement</a>
+                    <a href="#">Delete Announcement</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Manage Admission</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('view_admissions') }}">View Admissions</a>
+                    <a href="{{ url_for('add_admission') }}">Create Admission</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#">Manage About</a>
+                <div class="dropdown-content">
+                    <a href="{{ url_for('index') }}">View About</a>
+                    <a href="{{ url_for('insert_form') }}">Create About</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>
